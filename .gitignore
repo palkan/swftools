@@ -92,3 +92,9 @@ tmp/
 src/ttftool
 _pypath.py
 _pypath.txt
+
+# IDEA files
+.idea/*
+*.iml
+
+*.DS_Store
