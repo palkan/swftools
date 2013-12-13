@@ -711,28 +711,11 @@ int main(int argn, char *argv[])
 	return 0;
     }
 
-    char*u = 0;
-    if((u = strchr(outputname, '%'))) {
-	if(strchr(u+1, '%') || 
-	   strchr(outputname, '%')!=u)  {
-	    msg("<error> only one %% allowed in filename\n");
-	    return 1;
-	}
-	if(preloader || viewer) {
-	    msg("<error> -b/-l/-B/-L not supported together with %% in filename\n");
-	    return 1;
-	}
+    if((strchr(outputname, '%'))) {
 	msg("<notice> outputting one file per page");
-	one_file_per_page = 1;
-	char*pattern = (char*)malloc(strlen(outputname)+2);
-	/* convert % to %d */
-	int l = u-outputname+1;
-	memcpy(pattern, outputname, l);
-	pattern[l]='d';
-	strcpy(pattern+l+1, outputname+l);
-	outputname = pattern;
+        one_file_per_page = 1;
     }
-
+   
     gfxdocument_t* pdf = driver->open(driver, filename);
     if(!pdf) {
         msg("<error> Couldn't open %s", filename);
